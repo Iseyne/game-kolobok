@@ -6,6 +6,7 @@ import volf
 import rabbit
 import fox
 import walls
+import furniture
 import zone
 
              
@@ -30,12 +31,27 @@ class Game:
         self.__volf = volf.Volf()
         self.__rabbit = rabbit.Rabbit()
         self.__fox = fox.Fox()
-        self.__walls = walls.Walls()  
+        self.__walls = walls.Walls() 
+        self.__safe = furniture.Furniture(config.safe_width, config.safe_height, config.safe_x, config.safe_y, config.safe_image)
+        self.__cabinet_1 = furniture.Furniture(config.cabinet_width_1, config.cabinet_height_1, config.cabinet_x_1, config.cabinet_y_1, config.cabinet_image)
+        self.__cabinet_2 = furniture.Furniture(config.cabinet_width_2, config.cabinet_height_2, config.cabinet_x_2, config.cabinet_y_2, config.cabinet_image)
+        self.__bake = furniture.Furniture(config.bake_width, config.bake_height, config.bake_x, config.bake_y, config.bake_image)
+        self.__fridge = furniture.Furniture(config.fridge_width, config.fridge_height, config.fridge_x, config.fridge_y, config.fridge_image)
         
         self.__restricted_zones = self.__fill_restricted_zones()
         
     def __fill_restricted_zones(self):
-        return [self.__medved.get_zone(), self.__volf.get_zone(), self.__rabbit.get_zone(), self.__fox.get_zone(), *self.__walls.get_zone()]
+        return [self.__medved.get_zone(),
+                self.__volf.get_zone(),
+                self.__rabbit.get_zone(),
+                self.__fox.get_zone(),
+                *self.__walls.get_zone(),
+                self.__safe.get_zone(),
+                self.__cabinet_1.get_zone(),
+                self.__cabinet_2.get_zone(),
+                self.__bake.get_zone(),
+                self.__fridge.get_zone()
+            ]
         
     # Деструктор
     def __del__(self):
@@ -78,5 +94,11 @@ class Game:
         self.__volf.draw(self.__screen)
         self.__rabbit.draw(self.__screen)
         self.__fox.draw(self.__screen)
+        self.__safe.draw(self.__screen)
+        self.__cabinet_1.draw(self.__screen)
+        self.__cabinet_2.draw(self.__screen)
+        self.__bake.draw(self.__screen)
+        self.__fridge.draw(self.__screen)
+        
         pygame.display.flip() # Показываем экран пользователю
         

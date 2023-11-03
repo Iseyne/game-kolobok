@@ -52,6 +52,7 @@ class Kolobok:
         x = self.__calc_move_x()
         y = self.__calc_move_y()
         self.__zone = zone.Zone(x, y, x + self.__width, y, x + self.__width, y + self.__height, x, y + self.__height).get_list()
+        print(self.__zone)
         if not self.__is_in_restricted_zone(restricted_zones):
             self.__x = x
             self.__y = y
