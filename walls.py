@@ -1,5 +1,4 @@
-import config
-import zone
+import config, pygame
 
 class Wall:
     def __init__(self, width, height, x, y):
@@ -7,10 +6,10 @@ class Wall:
         self.__height = height
         self.__x = x
         self.__y = y
-        self.__zone = zone.Zone(self.__x, self.__y, self.__x + self.__width, self.__y, self.__x + self.__width, self.__y + self.__height, self.__x, self.__y + self.__height)
+        self.__rect = pygame.Rect((self.__x, self.__y), (self.__width, self.__height))
         
-    def get_zone(self):
-        return self.__zone
+    def get_rect(self):
+        return self.__rect
 
 class Walls:
     
@@ -23,8 +22,8 @@ class Walls:
             Wall(config.wall_width_5, config.wall_height_5, config.wall_x_5, config.wall_y_5)
         ]
         
-    def get_zone(self):
-        zones = []
+    def get_rect(self):
+        rects = []
         for i in self.__walls:
-            zones.append(i.get_zone())
-        return zones
+            rects.append(i.get_rect())
+        return rects
