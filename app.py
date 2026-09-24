@@ -118,57 +118,53 @@ class Game:
 
             self.__clock.tick(self.__fps) # Контроль FPS
             
-    # Проверка событий   
+    # Проверка событий
     def __check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.__counter = 0
-                
+
                 elif event.key == pygame.K_i:
                     self.__counter = 2
-                    
-                elif event.key == pygame.K_e and self.__player.in_restricted_zone(self.__restricted_zones) and self.__player.index_restricted_zone(self.__restricted_zones) < len(self.__nps_texts):
-                    self.__counter = 1
-                    self.__nps_text_index = self.__player.index_restricted_zone(self.__restricted_zones)
-                    
-                elif event.key == pygame.K_e and self.__player.in_restricted_zone(self.__restricted_zones) and self.__player.index_restricted_zone(self.__restricted_zones) >= len(self.__nps_texts): 
-                    if self.__player.index_restricted_zone(self.__restricted_zones) == 4:
+
+                elif event.key == pygame.K_e:
+                    zone_index = self.__player.index_restricted_zone(self.__restricted_zones)
+                    if zone_index is None:
+                        pass
+                    elif zone_index < len(self.__nps_texts):
+                        self.__counter = 1
+                        self.__nps_text_index = zone_index
+                    elif zone_index == 4:
                         self.__safe_task = safe_task.Safe_task(self.__inventory)
-                        
-                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 5:
+                    elif zone_index == 5:
                         self.__cabinet_task = cabinet_task.Cabinet_task(self.__inventory)
-                    
-                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 6:
+                    elif zone_index == 6:
                         self.__letter = letter_task.Letter_task()
-                        
-                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 7:
-                        self.__bake_task = bake_task.Bake_task(self.__inventory)  
-                        
-                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 8:
+                    elif zone_index == 7:
+                        self.__bake_task = bake_task.Bake_task(self.__inventory)
+                    elif zone_index == 8:
                         self.__fridge_task = fridge_task.Fridge_task(self.__inventory)
-                        
-                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 9:
+                    elif zone_index == 9:
                         self.__painting_task = painting_task.Painting_task(self.__inventory)
-                        
-                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 10:
-                        self.__exit_task = exit_task.Exit_task(self.__inventory)      
-                        
-                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 11:
-                        self.__table_task = table_task.Table_task(self.__inventory)                        
-                        
+                    elif zone_index == 10:
+                        self.__exit_task = exit_task.Exit_task(self.__inventory)
+                    elif zone_index == 11:
+                        self.__table_task = table_task.Table_task(self.__inventory)
+
             elif event.type == pygame.QUIT:
                 self.__game_end = True
-                
-            elif self.__inventory | {"КОНЕЦ"} == self.__inventory:
-                self.__finish_task = finish_task.Finish_task()
-                self.__game_end = True
-                
+
             self.__player.check_event(event)
+
     # Проверка логики игры
     def __check_logic(self):
         self.__player.check_logic(self.__width, self.__height)
-        
+
+        if self.__inventory | {"КОНЕЦ"} == self.__inventory:
+            self.__finish_task = finish_task.Finish_task()
+            self.__game_end = True
+
         if self.__counter == 0:
             self.__text = self.__font.render(config.text_none, True, config.text_color)
         elif self.__counter == 1:             
