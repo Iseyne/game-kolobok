@@ -1,6 +1,6 @@
 import pygame, config, time
 
-class Fridge_task:
+class Exit_task:
     def __init__(self, inventory):
         pygame.init()
         pygame.font.init()
@@ -8,14 +8,14 @@ class Fridge_task:
         self.__width = config.width
         self.__height = config.height
         self.__screen = pygame.display.set_mode((self.__width, self.__height))
-        self.__bg = pygame.transform.smoothscale(pygame.image.load(config.fridge_task_image).convert_alpha(), (self.__width, config.bg_height))        
+        self.__bg = pygame.transform.smoothscale(pygame.image.load(config.exit_task_image).convert_alpha(), (self.__width, config.bg_height))        
         
         self.__font = pygame.font.Font(None, 30)
-        self.__text = self.__font.render(config.fridge_task_text, True, config.text_color)
-        self.__text_one = self.__font.render(config.fridge_task_text_one, True, config.text_color)
-        self.__text_two = self.__font.render(config.fridge_task_text_two, True, config.text_color)
-        self.__text_true = self.__font.render("Вы взяли молоко!", True, (0, 255, 0))
-        self.__text_false = self.__font.render("У вас нет ключа!", True, (255, 0, 0))
+        self.__text = self.__font.render(config.exit_task_text, True, config.text_color)
+        self.__text_one = self.__font.render(config.exit_task_text_one, True, config.text_color)
+        self.__text_two = self.__font.render(config.exit_task_text_two, True, config.text_color)
+        self.__text_true = self.__font.render("ВЫ ВЫШЛИ! Mission completed. Respect +", True, (0, 255, 0))
+        self.__text_false = self.__font.render("У вас нет отпечатка или яблока!", True, (255, 0, 0))
         
         
         
@@ -32,9 +32,9 @@ class Fridge_task:
             
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_1 and {"ключ"} | inventory == inventory:
+                    if event.key == pygame.K_1 and {"отпечаток", "ЯБЛОКО"} | inventory == inventory:
                         self.__answer = 1
-                    elif event.key == pygame.K_1 and {"ключ"} | inventory != inventory:
+                    elif event.key == pygame.K_1 and {"отпечаток", "ЯБЛОКО"} | inventory != inventory:
                         self.__answer = 3
                     elif event.key == pygame.K_2:
                         self.__answer = 2  
@@ -44,9 +44,9 @@ class Fridge_task:
         
         if self.__answer == 1:
             self.__screen.blit(self.__text_true, (config.text_x, config.text_y + 50))
-            pygame.display.flip()  
-            inventory.add("молоко")
-            inventory -= {"ключ"}
+            pygame.display.flip()
+            inventory -= {"отпечаток", "ЯБЛОКО"}
+            inventory.add("КОНЕЦ")
             
             time.sleep(3)
         elif self.__answer == 3:

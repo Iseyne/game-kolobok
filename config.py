@@ -39,9 +39,9 @@ volf_y = 50
 volf_image = "sprites/volf.png"
 
 # Настройки лисы
-fox_task_text = "Чтобы выйти, выиграй меня."
+fox_task_text = "Чтобы получить отпечаток, выиграй меня."
 fox_result_text = "О нет, ты победил!"
-fox_item = {"карточка"}
+fox_item = {"МЕЧ"}
 fox_x = 325
 fox_y = 325
 fox_image = "sprites/fox.png"
@@ -99,7 +99,7 @@ cabinet_y_1 = 37
 cabinet_width_2 = 75
 cabinet_height_2 = 80
 cabinet_x_2 = 410
-cabinet_y_2 = 304
+cabinet_y_2 = 305
 
 bake_image = "sprites/bake.png"
 bake_width = 125
@@ -119,7 +119,21 @@ painting_height = 15
 painting_x = 410
 painting_y = 281
 
-letter_image = "sprites/letter_task.png"
+exit_image = "sprites/exit.png"
+exit_width = 75
+exit_height = 35
+exit_x = 150
+exit_y = 560
+
+table_image = "sprites/table.png"
+table_width = 75
+table_height = 135
+table_x = 37
+table_y = 325
+
+letter_task_image = "sprites/letter_task.png"
+letter_task_text = "Выберите цифру:"
+letter_task_text_one = "1. Вернуться"
 
 painting_task_image = "sprites/painting_task.png"
 painting_task_text = "Выберите цифру правильного варианта ответа:"
@@ -131,7 +145,7 @@ painting_task_text_four = "4. Чёрный прямоугольник"
 bake_task_image = "sprites/bake_task.png"
 bake_task_text = "Выберите цифру:"
 bake_task_text_one = "1. Взять муку"
-bake_task_text_two = "2. Выйти"
+bake_task_text_two = "2. Вернуться"
 
 cabinet_task_image = "sprites/cabinet_task.png"
 cabinet_task_text = "Выберите цифру правильного варианта ответа:"
@@ -143,9 +157,21 @@ cabinet_task_text_four = "4. 16"
 fridge_task_image = "sprites/fridge_task.png"
 fridge_task_text = "Выберите цифру:"
 fridge_task_text_one = "1. Взять молоко"
-fridge_task_text_two = "2. Выйти"
+fridge_task_text_two = "2. Вернуться"
 
 safe_task_image = "sprites/safe_task.png"
 safe_task_text = "Выберите цифру:"
 safe_task_text_one = "1. Взять яблоко"
-safe_task_text_two = "2. Выйти"
+safe_task_text_two = "2. Вернуться"
+
+exit_task_image = "sprites/exit_task.png"
+exit_task_text = "Выберите цифру:"
+exit_task_text_one = "1. Хочу выбраться"
+exit_task_text_two = "2. Вернуться"
+
+table_task_image = "sprites/table_task.png"
+table_task_text = "Выберите цифру правильного варианта ответа:"
+table_task_text_one = "1. Тишина"
+table_task_text_two = "2. Воздух"
+table_task_text_four = "4. Друг"
+table_task_text_three = "3. Время" 

@@ -1,5 +1,5 @@
 import pygame, config, kolobok, medved, volf, rabbit, fox, walls, furniture
-import letter_task, painting_task, bake_task, cabinet_task, fridge_task, safe_task
+import letter_task, painting_task, bake_task, cabinet_task, fridge_task, safe_task, exit_task, table_task, finish_task
              
 
 class Game:
@@ -61,7 +61,20 @@ class Game:
                                               config.painting_y,
                                               config.painting_image
                                               )
-                
+        
+        self.__exit = furniture.Furniture(config.exit_width,
+                                              config.exit_height,
+                                              config.exit_x,
+                                              config.exit_y,
+                                              config.exit_image
+                                              )        
+        
+        self.__table = furniture.Furniture(config.table_width,
+                                              config.table_height,
+                                              config.table_x,
+                                              config.table_y,
+                                              config.table_image
+                                              )                
         
         self.__inventory = set()
         self.__restricted_zones = self.__rects()
@@ -84,6 +97,8 @@ class Game:
                 self.__bake.get_rect(),
                 self.__fridge.get_rect(),
                 self.__painting.get_rect(),
+                self.__exit.get_rect(),
+                self.__table.get_rect(),
                 *self.__walls.get_rect()
                 ]
     
@@ -136,7 +151,17 @@ class Game:
                     elif self.__player.index_restricted_zone(self.__restricted_zones) == 9:
                         self.__painting_task = painting_task.Painting_task(self.__inventory)
                         
+                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 10:
+                        self.__exit_task = exit_task.Exit_task(self.__inventory)      
+                        
+                    elif self.__player.index_restricted_zone(self.__restricted_zones) == 11:
+                        self.__table_task = table_task.Table_task(self.__inventory)                        
+                        
             elif event.type == pygame.QUIT:
+                self.__game_end = True
+                
+            elif self.__inventory | {"КОНЕЦ"} == self.__inventory:
+                self.__finish_task = finish_task.Finish_task()
                 self.__game_end = True
                 
             self.__player.check_event(event)
@@ -177,6 +202,8 @@ class Game:
         self.__bake.draw(self.__screen)
         self.__fridge.draw(self.__screen)
         self.__painting.draw(self.__screen)
+        self.__table.draw(self.__screen)
+        self.__exit.draw(self.__screen)
         
         pygame.display.flip() # Показываем экран пользователю
         
